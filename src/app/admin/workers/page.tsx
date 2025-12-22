@@ -107,18 +107,24 @@ export default function WorkersPage() {
                             value={formData.location}
                             onChange={e => setFormData({ ...formData, location: e.target.value })}
                         />
-                        <div className="flex items-center gap-4 bg-slate-950 p-3 rounded-lg border border-slate-800">
-                            <span className="text-slate-400">Alert Mode:</span>
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" checked={formData.alertModes.includes('SMS')}
-                                    onChange={() => setFormData({ ...formData, alertModes: 'SMS,Voice' })}
-                                /> SMS
-                            </label>
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" checked={formData.alertModes.includes('Voice')}
-                                    onChange={() => setFormData({ ...formData, alertModes: 'SMS,Voice' })}
-                                /> Voice
-                            </label>
+                        <div className="flex flex-wrap items-center gap-4 bg-slate-950 p-3 rounded-lg border border-slate-800">
+                            <span className="text-slate-400 text-sm">Alert Modes:</span>
+                            {['SMS', 'Voice', 'Email'].map(mode => (
+                                <label key={mode} className="flex items-center gap-2 cursor-pointer text-white text-sm">
+                                    <input
+                                        type="checkbox"
+                                        checked={formData.alertModes.includes(mode)}
+                                        onChange={e => {
+                                            const current = formData.alertModes.split(',').filter(x => x);
+                                            const updated = e.target.checked
+                                                ? [...current, mode].join(',')
+                                                : current.filter(x => x !== mode).join(',');
+                                            setFormData({ ...formData, alertModes: updated });
+                                        }}
+                                        className="accent-emerald-500"
+                                    /> {mode}
+                                </label>
+                            ))}
                         </div>
 
                         <div className="col-span-full flex justify-end gap-3 mt-4">

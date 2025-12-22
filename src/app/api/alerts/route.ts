@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { sendEmail } from '@/lib/mail';
 
 export async function GET() {
     try {
@@ -23,17 +24,36 @@ export async function POST(request: Request) {
                 message: body.message,
                 type: body.type, // Emergency, Health, Disaster
                 priority: body.priority, // High, Medium, Low
-                channels: body.channels, // e.g. "SMS,Voice"
+                channels: body.channels, // e.g. "SMS,Voice,Email"
                 targetCatId: parseInt(body.targetCatId),
                 status: 'SENT',
             },
             include: { category: true }
         });
 
-        // 2. Simulate Dispatch to Cloud Services
-        // In a real app, this would call AWS SNS, Twilio, etc.
-        // Here we just log it or call our simulation endpoint internally? 
-        // We'll log to console for Server-Side logging.
+        // 2. Fetch Workers in Category to send Emails
+        if (body.channels.includes('Email')) {
+            const workers = await prisma.healthWorker.findMany({
+                where: {
+                    categoryId: alert.targetCatId,
+                    alertModes: { contains: 'Email' }
+                }
+            });
+
+            console.log(`[EMAIL_DISPATCH] Sending to ${workers.length} workers`);
+
+            for (const worker of workers) {
+                if (worker.email) {
+                    await sendEmail(
+                        worker.email,
+                        `🚨 ${alert.type} ALERT: ${alert.priority} Priority`,
+                        `Medical Emergency System Notification:\n\nMessage: ${alert.message}\nCategory: ${alert.category.name}\n\nPlease acknowledge this alert in your dashboard.`
+                    );
+                }
+            }
+        }
+
+        // 3. Simulate Dispatch to Cloud Services (SMS/Voice)
         console.log(`[CLOUD_MOCK] Dispatching Alert #${alert.id} to Category: ${alert.category.name}`);
         console.log(`[CLOUD_MOCK] Channels: ${alert.channels}`);
         console.log(`[CLOUD_MOCK] Message: ${alert.message}`);

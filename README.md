@@ -4,11 +4,11 @@ CBHCMS is a modern, cloud-ready web application designed to facilitate rapid res
 
 ![Dashboard Preview](https://via.placeholder.com/800x400?text=CBHCMS+Dashboard)
 
-##  Key Features
+## Key Features
 
 *   ** Voice-Activated Assistance**: Users can trigger emergency alerts simply by speaking keywords like "Help" or "Emergency" using the Web Speech API.
 *   ** Admin Dashboard**: Full CRUD management capabilities for Health Workers and Worker Categories.
-*   ** Real-Time Alert Broadcast**: Dispatch critical alerts to specific target groups (e.g., Doctors, Ambulance) via multiple channels (SMS, Voice, App).
+*   **🚨 Real-Time Alert Broadcast**: Dispatch critical alerts to specific target groups (e.g., Doctors, Ambulance) via multiple channels (SMS, Voice, Email, App).
 *   ** Cloud Simulation Gateway**: visualized event logging for SMS/Voice API dispatching (simulating AWS SNS/Twilio/FCM).
 *   ** Responder PWA**: A mobile-first Progressive Web App interface for health workers to receive and acknowledge alerts instantly.
 

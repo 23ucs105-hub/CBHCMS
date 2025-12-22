@@ -111,6 +111,29 @@ export default function AlertsPage() {
                             </select>
                         </div>
 
+                        <div>
+                            <label className="text-xs text-slate-400 uppercase font-semibold">Channels</label>
+                            <div className="flex flex-wrap gap-4 mt-2">
+                                {['SMS', 'Voice', 'Email'].map(ch => (
+                                    <label key={ch} className="flex items-center gap-2 text-white cursor-pointer group">
+                                        <input
+                                            type="checkbox"
+                                            checked={formData.channels.includes(ch)}
+                                            onChange={e => {
+                                                const current = formData.channels.split(',').filter(x => x);
+                                                const updated = e.target.checked
+                                                    ? [...current, ch].join(',')
+                                                    : current.filter(x => x !== ch).join(',');
+                                                setFormData({ ...formData, channels: updated });
+                                            }}
+                                            className="accent-red-500"
+                                        />
+                                        <span className="text-sm group-hover:text-red-400 transition-colors uppercase tracking-wider">{ch}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
                         <button type="submit" className="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-lg mt-4 transition-colors flex items-center justify-center gap-2">
                             <Send size={18} />
                             BROADCAST ALERT
@@ -130,8 +153,8 @@ export default function AlertsPage() {
                     alerts.map(alert => (
                         <div key={alert.id} className="bg-slate-900 border border-slate-800 p-5 rounded-lg flex gap-4 animate-in slide-in-from-right-4">
                             <div className={`p-3 rounded-full h-fit ${alert.priority === 'High' ? 'bg-red-500/20 text-red-500' :
-                                    alert.priority === 'Medium' ? 'bg-orange-500/20 text-orange-500' :
-                                        'bg-blue-500/20 text-blue-500'
+                                alert.priority === 'Medium' ? 'bg-orange-500/20 text-orange-500' :
+                                    'bg-blue-500/20 text-blue-500'
                                 }`}>
                                 <AlertTriangle size={24} />
                             </div>

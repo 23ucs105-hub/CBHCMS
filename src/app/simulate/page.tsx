@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Terminal, Cpu, Cloud, Wifi } from 'lucide-react';
+import { Terminal, Cpu, Cloud, Wifi, Mail } from 'lucide-react';
 
 export default function SimulatePage() {
     const [logs, setLogs] = useState<any[]>([]);
@@ -76,8 +76,8 @@ export default function SimulatePage() {
                             <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">OPERATIONAL</span>
                         </div>
                         <div className="bg-green-900/10 border border-green-800 p-4 flex flex-col justify-center items-center">
-                            <Wifi size={48} className="mb-2 text-green-500" />
-                            <h3 className="text-xl font-bold">App Push</h3>
+                            <Mail size={48} className="mb-2 text-green-500" />
+                            <h3 className="text-xl font-bold">Email SMTP</h3>
                             <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">OPERATIONAL</span>
                         </div>
                         <div className="bg-green-900/10 border border-green-800 p-4 flex flex-col justify-center items-center">
