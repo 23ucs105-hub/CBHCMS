@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=file:./dev.db
+    volumes:
+      # Mount the sqlite db file so it persists/is accessible
+      - ./prisma/dev.db:/app/prisma/dev.db
+    restart: always
+
+  # Simulation of a background worker or metric collector could go here
+  # For now just the web app is enough for the prototype
