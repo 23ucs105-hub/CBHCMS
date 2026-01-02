@@ -1,10 +1,16 @@
 'use client';
 
+<<<<<<< HEAD
 import Image from "next/image";
 import { Activity, Heart, Shield, Phone, ArrowRight } from "lucide-react";
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import PublicAI from '@/components/PublicAI';
+=======
+import { useState, useEffect, useRef } from 'react';
+import { Mic, MicOff, AlertCircle, Phone } from 'lucide-react';
+import Image from 'next/image';
+>>>>>>> 2c86f74c62da423df98dd90b03b22f41dd22e385
 
 export default function Home() {
   const { t } = useLanguage();
@@ -17,6 +23,7 @@ export default function Home() {
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[128px]" />
       </div>
 
+<<<<<<< HEAD
       {/* Header */}
       <header className="relative z-50 container mx-auto px-6 py-6 flex justify-between items-center">
         <div className="flex items-center gap-3">
@@ -24,6 +31,17 @@ export default function Home() {
             <Image src="/logo.png" alt="Logo" fill className="object-contain" />
           </div>
           <span className="font-bold text-xl tracking-tight">CBHCMS</span>
+=======
+      <header className="absolute top-6 left-6 flex items-center gap-2">
+        <div className="bg-primary/20 p-2 rounded-lg">
+          <Image
+            src="/logo.png"
+            alt="CBHCMS Logo"
+            width={32}
+            height={32}
+            className="w-8 h-8 object-contain"
+          />
+>>>>>>> 2c86f74c62da423df98dd90b03b22f41dd22e385
         </div>
         <LanguageSwitcher />
       </header>
@@ -51,9 +69,23 @@ export default function Home() {
           <PublicAI />
         </div>
 
+<<<<<<< HEAD
         <p className="text-slate-500 text-sm mt-8 animate-in fade-in slide-in-from-bottom-8 delay-500">
           {t('voicePrompt')}
         </p>
+=======
+        <div className="h-20 flex flex-col items-center justify-center">
+          {transcript && (
+            <p className="text-xl italic text-slate-300 mb-2">"{transcript}"</p>
+          )}
+          <div className={`text-sm font-semibold px-4 py-1 rounded-full ${status === 'Alert Sent!' ? 'bg-green-500/20 text-green-400' :
+            status === 'Error' ? 'bg-red-500/20 text-red-400' :
+              'bg-slate-800 text-slate-400'
+            }`}>
+            {status}
+          </div>
+        </div>
+>>>>>>> 2c86f74c62da423df98dd90b03b22f41dd22e385
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-32 text-left">

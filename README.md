@@ -19,7 +19,57 @@ A modern, real-time alert management system built with Next.js, Prisma, and Tail
 - npm or yarn
 - Ollama (for AI features) - [Download here](https://ollama.ai)
 
+<<<<<<< HEAD
 ## ⚙️ Setup
+=======
+*   **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+*   **Language**: TypeScript
+*   **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+*   **Database**: SQLite (Local) / PostgreSQL (Cloud Ready)
+*   **ORM**: [Prisma](https://www.prisma.io/)
+*   **Containerization**: Docker
+
+## Prerequisites
+
+*   Node.js v18+ 
+*   npm or yarn
+
+## Installation & Local Setup
+
+1.  **Clone the repository or download**
+    ```bash
+    git clone https://github.com/yourusername/cbhcms.git
+    cd cbhcms
+    ```
+
+2.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Setup**
+    Create a `.env` file in the root directory (already set up for local dev):
+    ```env
+    DATABASE_URL="file:./dev.db"
+    ```
+
+4.  **Initialize Database**
+    Push the Prisma schema to the database and seed initial data:
+    ```bash
+    npx prisma migrate dev --name init
+    npx tsx prisma/seed.ts
+    ```
+
+5.  **Run Development Server**
+    ```bash
+    npm run dev
+    ```
+    Access the app at `http://localhost:3000`.
+
+## Production Build
+
+To build the application for production:
+>>>>>>> 2c86f74c62da423df98dd90b03b22f41dd22e385
 
 ### 1. Clone & Install
 ```bash

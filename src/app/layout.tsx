@@ -10,6 +10,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "CBHCMS",
+<<<<<<< HEAD
   description: "Community Based Health Care Management System",
   manifest: "/manifest.json",
   icons: {
@@ -29,6 +30,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+=======
+  description: "",
+  icons: "/logo.png",
+>>>>>>> 2c86f74c62da423df98dd90b03b22f41dd22e385
 };
 
 export default function RootLayout({
