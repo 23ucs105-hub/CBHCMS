@@ -28,7 +28,7 @@ CBHCMS is a modern, cloud-ready web application designed to facilitate rapid res
 
 ## Installation & Local Setup
 
-1.  **Clone the repository**
+1.  **Clone the repository or download**
     ```bash
     git clone https://github.com/yourusername/cbhcms.git
     cd cbhcms

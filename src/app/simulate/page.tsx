@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Terminal, Cpu, Cloud, Wifi, Mail } from 'lucide-react';
+import Image from 'next/image';
 
 export default function SimulatePage() {
     const [logs, setLogs] = useState<any[]>([]);
@@ -35,6 +36,7 @@ export default function SimulatePage() {
         <div className="min-h-screen bg-black text-green-500 font-mono p-4">
             <header className="flex justify-between items-center border-b border-green-800 pb-4 mb-4">
                 <h1 className="text-xl flex items-center gap-2">
+                    <Image src="/logo.png" alt="Logo" width={24} height={24} className="w-6 h-6 object-contain" />
                     <Terminal size={24} />
                     CLOUD_SIMULATION_GATEWAY_v1.0
                 </h1>

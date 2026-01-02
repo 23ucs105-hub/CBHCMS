@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, AlertCircle, Phone } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Home() {
   const [isListening, setIsListening] = useState(false);
@@ -120,7 +121,13 @@ export default function Home() {
 
       <header className="absolute top-6 left-6 flex items-center gap-2">
         <div className="bg-primary/20 p-2 rounded-lg">
-          <AlertCircle className="text-primary w-6 h-6" />
+          <Image
+            src="/logo.png"
+            alt="CBHCMS Logo"
+            width={32}
+            height={32}
+            className="w-8 h-8 object-contain"
+          />
         </div>
         <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-300">
           CBHCMS
@@ -169,8 +176,8 @@ export default function Home() {
             <p className="text-xl italic text-slate-300 mb-2">"{transcript}"</p>
           )}
           <div className={`text-sm font-semibold px-4 py-1 rounded-full ${status === 'Alert Sent!' ? 'bg-green-500/20 text-green-400' :
-              status === 'Error' ? 'bg-red-500/20 text-red-400' :
-                'bg-slate-800 text-slate-400'
+            status === 'Error' ? 'bg-red-500/20 text-red-400' :
+              'bg-slate-800 text-slate-400'
             }`}>
             {status}
           </div>

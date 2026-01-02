@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { LayoutDashboard, Users, Bell, Settings, LogOut } from 'lucide-react';
+import Image from 'next/image';
 
 export default function AdminLayout({
     children,
@@ -11,9 +12,12 @@ export default function AdminLayout({
             {/* Sidebar */}
             <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
                 <div className="p-6">
-                    <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
-                        Admin Portal
-                    </h1>
+                    <div className="flex items-center gap-2 mb-2">
+                        <Image src="/logo.png" alt="Logo" width={32} height={32} className="w-8 h-8 object-contain" />
+                        <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
+                            Admin Portal
+                        </h1>
+                    </div>
                     <p className="text-xs text-slate-500 mt-1">Cloud Alert System</p>
                 </div>
 
