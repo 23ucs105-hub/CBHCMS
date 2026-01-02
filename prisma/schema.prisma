@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model WorkerCategory {
+  id          Int            @id @default(autoincrement())
+  name        String         @unique
+  description String?
+  workers     HealthWorker[]
+  alerts      Alert[] // Alerts targeted to this category
+}
+
+model HealthWorker {
+  id          Int            @id @default(autoincrement())
+  fullName    String
+  phone       String         @unique
+  email       String?
+  location    String?
+  isActive    Boolean        @default(true)
+  alertModes  String         // Stored as comma-separated: "SMS,Voice,App"
+  categoryId  Int
+  category    WorkerCategory @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Alert {
+  id          Int            @id @default(autoincrement())
+  message     String
+  type        String         // Emergency, Health, Disaster
+  priority    String         // Low, Medium, High
+  channels    String         // SMS,Voice,App
+  targetCatId Int
+  category    WorkerCategory @relation(fields: [targetCatId], references: [id])
+  status      String         @default("SENT") // SENT, DELIVERED, ACKNOWLEDGED
+  createdAt   DateTime       @default(now())
+}
