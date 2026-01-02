@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Bell, Check, Shield } from 'lucide-react';
+import Image from 'next/image';
 
 export default function WorkerApp() {
     const [selectedCategory, setSelectedCategory] = useState('1');
@@ -33,7 +34,7 @@ export default function WorkerApp() {
             <header className="bg-emerald-600 text-white p-4 sticky top-0 z-10 shadow-md">
                 <div className="flex justify-between items-center">
                     <h1 className="font-bold text-lg flex items-center gap-2">
-                        <Shield size={20} /> Responder App
+                        <Image src="/logo.png" alt="Logo" width={24} height={24} className="w-6 h-6 object-contain bg-white rounded-full p-0.5" /> Responder App
                     </h1>
                     <div className="bg-emerald-700 px-2 py-1 rounded text-xs">
                         Online
