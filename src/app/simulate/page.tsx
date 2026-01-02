@@ -1,12 +1,9 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Terminal, Cpu, Cloud, Wifi, Mail } from 'lucide-react';
-<<<<<<< HEAD
+import { Terminal, Cpu, Cloud, Wifi, Mail, Phone } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-=======
 import Image from 'next/image';
->>>>>>> 2c86f74c62da423df98dd90b03b22f41dd22e385
 
 export default function SimulatePage() {
     const { t } = useLanguage();
@@ -99,5 +96,3 @@ export default function SimulatePage() {
     );
 }
 
-// Need to import Phone if I use it
-import { Phone } from 'lucide-react';
