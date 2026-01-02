@@ -1,101 +1,125 @@
-# Cloud-Based Voice Assistance & Health Worker Alert System (CBHCMS)
+# CBHCMS - Community Based Health Care Management System
 
-CBHCMS is a modern, cloud-ready web application designed to facilitate rapid response for medical emergencies. It features a voice-activated public interface, a robust admin dashboard for managing health workers, and a real-time alert dispatch system simulated via cloud gateways.
+A modern, real-time alert management system built with Next.js, Prisma, and Tailwind CSS.
 
-![Dashboard Preview](https://via.placeholder.com/800x400?text=CBHCMS+Dashboard)
+## 🚀 Features
 
-## Key Features
+- ✅ **Authentication & User Management** (Admin & Workers)
+- ✅ **Public AI Chat Interface** with Voice Assistant
+- ✅ **Real-time Alert System** with Email Notifications
+- ✅ **Location Services** (GPS tracking and Google Maps integration)
+- ✅ **PWA Support** (Install as mobile app)
+- ✅ **Multi-language Support** (English, Hindi, Tamil)
+- ✅ **Admin Portal** for managing workers and alerts
+- ✅ **Worker Dashboard** for receiving and responding to alerts
 
-*   ** Voice-Activated Assistance**: Users can trigger emergency alerts simply by speaking keywords like "Help" or "Emergency" using the Web Speech API.
-*   ** Admin Dashboard**: Full CRUD management capabilities for Health Workers and Worker Categories.
-*   **🚨 Real-Time Alert Broadcast**: Dispatch critical alerts to specific target groups (e.g., Doctors, Ambulance) via multiple channels (SMS, Voice, Email, App).
-*   ** Cloud Simulation Gateway**: visualized event logging for SMS/Voice API dispatching (simulating AWS SNS/Twilio/FCM).
-*   ** Responder PWA**: A mobile-first Progressive Web App interface for health workers to receive and acknowledge alerts instantly.
+## 📋 Prerequisites
 
-## Technology Stack
+- Node.js 18+ 
+- npm or yarn
+- Ollama (for AI features) - [Download here](https://ollama.ai)
 
-*   **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
-*   **Language**: TypeScript
-*   **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
-*   **Database**: SQLite (Local) / PostgreSQL (Cloud Ready)
-*   **ORM**: [Prisma](https://www.prisma.io/)
-*   **Containerization**: Docker
+## ⚙️ Setup
 
-## Prerequisites
-
-*   Node.js v18+ 
-*   npm or yarn
-
-## Installation & Local Setup
-
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/yourusername/cbhcms.git
-    cd cbhcms
-    ```
-
-2.  **Install Dependencies**
-    ```bash
-    npm install
-    ```
-
-3.  **Environment Setup**
-    Create a `.env` file in the root directory (already set up for local dev):
-    ```env
-    DATABASE_URL="file:./dev.db"
-    ```
-
-4.  **Initialize Database**
-    Push the Prisma schema to the database and seed initial data:
-    ```bash
-    npx prisma migrate dev --name init
-    npx tsx prisma/seed.ts
-    ```
-
-5.  **Run Development Server**
-    ```bash
-    npm run dev
-    ```
-    Access the app at `http://localhost:3000`.
-
-## Production Build
-
-To build the application for production:
-
+### 1. Clone & Install
 ```bash
-npm run build
-npm start
+git clone <your-repo-url>
+cd CBHCMS
+npm install
 ```
 
-## Deployment (Google Cloud)
+### 2. Environment Configuration
+Copy `.env.example` to `.env` and configure:
 
-This application is containerized and ready for Google Cloud Run. 
+```bash
+cp .env.example .env
+```
 
-1.  **Build Container**:
-    ```bash
-    docker build -t cbhcms-app .
-    ```
-2.  **Push to GCR/Artifact Registry**:
-    (See `deploy_to_gcp.md` for detailed GCP commands)
+**Required Environment Variables:**
+- `DATABASE_URL` - Database connection string
+- `AUTH_SECRET` - NextAuth secret (generate with `openssl rand -base64 32`)
+- `SMTP_*` - Email configuration for notifications
+- `OLLAMA_HOST` - Ollama API endpoint (default: `http://localhost:11434`)
 
-## Project Structure
+### 3. Database Setup
+```bash
+npx prisma db push
+```
 
-*   `src/app`: Next.js App Router pages and API routes.
-    *   `/admin`: Admin dashboard routes.
-    *   `/worker`: Mobile worker view.
-    *   `/simulate`: Cloud gateway simulation.
-    *   `/api`: Backend endpoints for Workers, Alerts, and Categories.
-*   `prisma/`: Database schema and seed scripts.
-*   `public/`: Static assets.
+### 4. Start Development Server
+```bash
+npm run dev
+```
 
-## Contributing
+The app will be available at `http://localhost:3000`
 
-1.  Fork the repository.
-2.  Create a feature branch (`git checkout -b feature/AmazingFeature`).
-3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4.  Push to the branch (`git push origin feature/AmazingFeature`).
-5.  Open a Pull Request.
+## 🔐 Default Credentials
 
-## License
+### Admin Login
+- **URL:** `http://localhost:3000/login`
+- **Username:** `admin`
+- **Password:** `admin123`
 
-Distributed under the MIT License. See `LICENSE` for more information.
+**⚠️ Important:** Change these credentials in production!
+
+## 🤖 AI Features
+
+To enable AI chat and voice features:
+
+1. Install Ollama: https://ollama.ai
+2. Run a model:
+   ```bash
+   ollama run llama3
+   ```
+3. The AI will be available in the Public Chat interface
+
+## 📱 PWA Installation
+
+On mobile devices:
+1. Open the app in Chrome/Safari
+2. Look for the "Install" or "Add to Home Screen" prompt
+3. The app will install as a native-like application
+
+## 📚 Key URLs
+
+- **Homepage (Public Chat):** `/`
+- **Admin Login:** `/login`
+- **Admin Dashboard:** `/admin`
+- **Health Workers Management:** `/admin/workers`
+- **Alerts & Logs:** `/admin/alerts`
+- **Test Notifications:** `/admin/test-alerts`
+- **Worker App:** `/worker` (requires login)
+- **Simulation View:** `/simulate`
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 14
+- **Database:** Prisma with SQLite (easily swappable to PostgreSQL)
+- **Authentication:** NextAuth.js v5
+- **Styling:** Tailwind CSS
+- **PWA:** @ducanh2912/next-pwa
+- **AI:** Ollama (self-hosted LLM)
+- **Email:** Nodemailer
+
+## 📧 Email Configuration
+
+Configure SMTP in `.env`:
+```env
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your-email@example.com
+SMTP_PASS=your-password
+```
+
+Test emails via `/admin/test-alerts`
+
+## 🚢 Deployment
+
+See [DEPLOY.md](./DEPLOY.md) for detailed deployment instructions for:
+- Vercel
+- Docker
+- Self-hosted VPS
+
+## 📝 License
+
+MIT License - see LICENSE file for details

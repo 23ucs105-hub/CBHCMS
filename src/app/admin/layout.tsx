@@ -1,46 +1,62 @@
+'use client';
+
 import Link from 'next/link';
 import { LayoutDashboard, Users, Bell, Settings, LogOut } from 'lucide-react';
+import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
+import { logout } from '@/lib/actions';
 
 export default function AdminLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const { t } = useLanguage();
+
     return (
         <div className="flex h-screen bg-slate-950 text-slate-100 overflow-hidden">
             {/* Sidebar */}
             <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
-                <div className="p-6">
-                    <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
-                        Admin Portal
-                    </h1>
-                    <p className="text-xs text-slate-500 mt-1">Cloud Alert System</p>
+                <div className="p-6 flex items-center gap-3">
+                    <Image src="/logo.png" alt="Logo" width={40} height={40} />
+                    <div>
+                        <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
+                            {t('adminPortal') || 'Admin Portal'}
+                        </h1>
+                        <p className="text-xs text-slate-500 mt-1">Cloud Alert System</p>
+                    </div>
                 </div>
 
                 <nav className="flex-1 px-4 space-y-2 mt-4">
                     <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-emerald-400 transition-colors">
                         <LayoutDashboard size={20} />
-                        <span>Dashboard</span>
+                        <span>{t('dashboard') || 'Dashboard'}</span>
                     </Link>
                     <Link href="/admin/workers" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-emerald-400 transition-colors">
                         <Users size={20} />
-                        <span>Health Workers</span>
+                        <span>{t('healthWorkers') || 'Health Workers'}</span>
                     </Link>
                     <Link href="/admin/alerts" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-emerald-400 transition-colors">
                         <Bell size={20} />
-                        <span>Alerts & Logs</span>
+                        <span>{t('alertsLogs') || 'Alerts & Logs'}</span>
                     </Link>
                     <Link href="/simulate" target="_blank" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-cyan-400 transition-colors">
                         <Settings size={20} />
-                        <span>Simulation View</span>
+                        <span>{t('simulationView') || 'Simulation View'}</span>
+                    </Link>
+                    <Link href="/admin/test-alerts" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors">
+                        <Bell size={20} />
+                        <span>Test Notifications</span>
                     </Link>
                 </nav>
 
                 <div className="p-4 border-t border-slate-800">
-                    <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500/10 text-slate-400 hover:text-red-400 transition-colors">
-                        <LogOut size={20} />
-                        <span>Logout</span>
-                    </Link>
+                    <form action={logout}>
+                        <button type="submit" className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500/10 text-slate-400 hover:text-red-400 transition-colors">
+                            <LogOut size={20} />
+                            <span>{t('logout') || 'Logout'}</span>
+                        </button>
+                    </form>
                 </div>
             </aside>
 

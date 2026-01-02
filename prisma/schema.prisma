@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
 model WorkerCategory {
@@ -22,6 +22,7 @@ model HealthWorker {
   email       String?
   location    String?
   isActive    Boolean        @default(true)
+  language    String         @default("en") // en, hi, ta
   alertModes  String         // Stored as comma-separated: "SMS,Voice,App"
   categoryId  Int
   category    WorkerCategory @relation(fields: [categoryId], references: [id])
@@ -38,5 +39,23 @@ model Alert {
   targetCatId Int
   category    WorkerCategory @relation(fields: [targetCatId], references: [id])
   status      String         @default("SENT") // SENT, DELIVERED, ACKNOWLEDGED
+  latitude    Float?
+  longitude   Float?
+  location    String?
   createdAt   DateTime       @default(now())
+}
+
+enum Role {
+  ADMIN
+  WORKER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  username  String   @unique
+  password  String
+  role      Role     @default(WORKER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
