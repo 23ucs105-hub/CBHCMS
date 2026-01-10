@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Send, AlertTriangle, Radio, CheckCircle, Clock } from 'lucide-react';
+import { Send, AlertTriangle, Radio, CheckCircle, Clock, MapPin } from 'lucide-react';
 
 export default function AlertsPage() {
     const [alerts, setAlerts] = useState<any[]>([]);
@@ -164,6 +164,23 @@ export default function AlertsPage() {
                                     <span className="text-xs text-slate-400">{new Date(alert.createdAt).toLocaleString()}</span>
                                 </div>
                                 <p className="text-slate-300 mt-1">{alert.message}</p>
+
+                                {(alert.latitude && alert.longitude) ? (
+                                    <div className="mt-2 text-sm">
+                                        <a
+                                            href={`https://www.google.com/maps?q=${alert.latitude},${alert.longitude}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-emerald-400 hover:underline flex items-center gap-1 w-fit"
+                                        >
+                                            <MapPin size={14} /> View Location
+                                        </a>
+                                    </div>
+                                ) : alert.location ? (
+                                    <div className="mt-2 text-sm text-slate-400 flex items-center gap-1">
+                                        <MapPin size={14} /> {alert.location}
+                                    </div>
+                                ) : null}
 
                                 <div className="flex items-center gap-4 mt-3 text-sm text-slate-500">
                                     <span className="flex items-center gap-1 bg-slate-800 px-2 py-1 rounded">

@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from '@/context/LanguageContext';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -9,8 +10,25 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "CBHCMS",
-  description: "",
-  icons: "/logo.png",
+  description: "Community Based Health Care Management System",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "CBHCMS",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#10b981",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -20,10 +38,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} antialiased`}
-      >
-        {children}
+      <body className={`${inter.variable} antialiased bg-slate-950 text-white`}>
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Terminal, Cpu, Cloud, Wifi, Mail } from 'lucide-react';
+import { Terminal, Cpu, Cloud, Wifi, Mail, Phone } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 import Image from 'next/image';
 
 export default function SimulatePage() {
+    const { t } = useLanguage();
     const [logs, setLogs] = useState<any[]>([]);
     const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -49,7 +51,7 @@ export default function SimulatePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-green-800 p-4 h-[80vh] overflow-auto bg-black rounded">
-                    <h2 className="border-b border-green-800 pb-2 mb-2 text-white">Event Log Stream</h2>
+                    <h2 className="border-b border-green-800 pb-2 mb-2 text-white">{t('eventLogStream')}</h2>
                     <div className="space-y-2">
                         {logs.map((log) => (
                             <div key={log.id} className="text-xs md:text-sm hover:bg-green-900/20 p-1">
@@ -64,27 +66,27 @@ export default function SimulatePage() {
                 </div>
 
                 <div className="border border-green-800 p-4 h-[80vh] flex flex-col gap-4">
-                    <h2 className="border-b border-green-800 pb-2 text-white">Service Health API</h2>
+                    <h2 className="border-b border-green-800 pb-2 text-white">{t('serviceHealthAPI')}</h2>
 
                     <div className="flex-1 grid grid-cols-2 gap-4">
                         <div className="bg-green-900/10 border border-green-800 p-4 flex flex-col justify-center items-center">
                             <Cloud size={48} className="mb-2 text-green-500" />
-                            <h3 className="text-xl font-bold">SMS Gateway</h3>
-                            <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">OPERATIONAL</span>
+                            <h3 className="text-xl font-bold">{t('smsGateway')}</h3>
+                            <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">{t('operational')}</span>
                         </div>
                         <div className="bg-green-900/10 border border-green-800 p-4 flex flex-col justify-center items-center">
                             <Phone size={48} className="mb-2 text-green-500" /> {/* Phone triggers error as Lucide import? Wait, I didn't import Phone here. */}
-                            <h3 className="text-xl font-bold">Voice API</h3>
-                            <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">OPERATIONAL</span>
+                            <h3 className="text-xl font-bold">{t('voiceAPI')}</h3>
+                            <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">{t('operational')}</span>
                         </div>
                         <div className="bg-green-900/10 border border-green-800 p-4 flex flex-col justify-center items-center">
                             <Mail size={48} className="mb-2 text-green-500" />
-                            <h3 className="text-xl font-bold">Email SMTP</h3>
-                            <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">OPERATIONAL</span>
+                            <h3 className="text-xl font-bold">{t('emailSMTP')}</h3>
+                            <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">{t('operational')}</span>
                         </div>
                         <div className="bg-green-900/10 border border-green-800 p-4 flex flex-col justify-center items-center">
                             <Cpu size={48} className="mb-2 text-green-500" />
-                            <h3 className="text-xl font-bold">Alert Engine</h3>
+                            <h3 className="text-xl font-bold">{t('alertEngine')}</h3>
                             <span className="bg-green-500 text-black px-2 text-xs rounded mt-2">PROCESSING</span>
                         </div>
                     </div>
@@ -94,5 +96,3 @@ export default function SimulatePage() {
     );
 }
 
-// Need to import Phone if I use it
-import { Phone } from 'lucide-react';

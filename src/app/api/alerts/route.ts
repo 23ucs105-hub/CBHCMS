@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { sendEmail } from '@/lib/mail';
+import { generateEmailHtml } from '@/lib/email-templates';
 
 export async function GET() {
     try {
@@ -27,6 +28,9 @@ export async function POST(request: Request) {
                 channels: body.channels, // e.g. "SMS,Voice,Email"
                 targetCatId: parseInt(body.targetCatId),
                 status: 'SENT',
+                latitude: body.latitude,
+                longitude: body.longitude,
+                location: body.location,
             },
             include: { category: true }
         });
@@ -44,10 +48,26 @@ export async function POST(request: Request) {
 
             for (const worker of workers) {
                 if (worker.email) {
+                    let emailBody = `Medical Emergency System Notification:\n\nMessage: ${alert.message}\nCategory: ${alert.category.name}`;
+                    if (alert.latitude && alert.longitude) {
+                        emailBody += `\n\nLocation: https://www.google.com/maps?q=${alert.latitude},${alert.longitude}`;
+                    }
+                    if (alert.location) {
+                        emailBody += `\nAddress: ${alert.location}`;
+                    }
+                    emailBody += `\n\nPlease acknowledge this alert in your dashboard.`;
+
+                    const emailHtml = generateEmailHtml(
+                        `🚨 ${alert.type} ALERT`,
+                        emailBody,
+                        worker.language || 'en'
+                    );
+
                     await sendEmail(
                         worker.email,
                         `🚨 ${alert.type} ALERT: ${alert.priority} Priority`,
-                        `Medical Emergency System Notification:\n\nMessage: ${alert.message}\nCategory: ${alert.category.name}\n\nPlease acknowledge this alert in your dashboard.`
+                        emailBody,
+                        emailHtml
                     );
                 }
             }

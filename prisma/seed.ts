@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -30,6 +31,25 @@ async function main() {
     });
 
     console.log({ doctor, ambulance, asha });
+
+    console.log('Creating admin user...');
+    try {
+        const password = await bcrypt.hash('admin123', 10);
+        const admin = await prisma.user.upsert({
+            where: { username: 'admin' },
+            update: {},
+            create: {
+                username: 'admin',
+                password,
+                name: 'System Admin',
+                role: 'ADMIN',
+                email: 'admin@cbhcms.com',
+            },
+        });
+        console.log('Admin user created:', admin);
+    } catch (error) {
+        console.error('Error creating admin user:', error);
+    }
 }
 
 main()
